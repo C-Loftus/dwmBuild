@@ -93,45 +93,46 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* Terminal colors (16 first used in escape sequence) */
+
+/* CUSTOM COLORS */
+
+/* Colors used, when the specific fg == defaultfg. So in reverse mode this
+ * will reverse too. Another logic would only make the simple feature too
+ * complex */
+
 static const char *colorname[] = {
-
-  /* 8 normal colors */
-  [0] = "#0f0e0d", /* black   */
-  [1] = "#845336", /* red     */
-  [2] = "#57553c", /* green   */
-  [3] = "#a17e3e", /* yellow  */
-  [4] = "#43454f", /* blue    */
-  [5] = "#604848", /* magenta */
-  [6] = "#5c6652", /* cyan    */
-  [7] = "#a18b62", /* white   */
-
-  /* 8 bright colors */
-  [8]  = "#383332", /* black   */
-  [9]  = "#8c4f4a", /* red     */
-  [10] = "#898471", /* green   */
-  [11] = "#c8b491", /* yellow  */
-  [12] = "#65788f", /* blue    */
-  [13] = "#755e4a", /* magenta */
-  [14] = "#718062", /* cyan    */
-  [15] = "#bc9d66", /* white   */
-
-  /* special colors */
-  [256] = "#191716", /* background */
-  [257] = "#daba8b", /* foreground */
+		"#073642",  /*  0: black    */
+			"#dc322f",  /*  1: red      */
+				"#859900",  /*  2: green    */
+					"#b58900",  /*  3: yellow   */
+						"#268bd2",  /*  4: blue     */
+							"#d33682",  /*  5: magenta  */
+								"#2aa198",  /*  6: cyan     */
+									"#eee8d5",  /*  7: white    */
+										"#002b36",  /*  8: brblack  */
+											"#cb4b16",  /*  9: brred    */
+												"#586e75",  /* 10: brgreen  */
+													"#657b83",  /* 11: bryellow */
+														"#839496",  /* 12: brblue   */
+															"#6c71c4",  /* 13: brmagenta*/
+																"#93a1a1",  /* 14: brcyan   */
+																	"#fdf6e3",  /* 15: brwhite  */
+																		/* more colors can be added after 255 to use with DefaultXX */
+																		"black",   /* 256 -> bg */
+																			"#00cc00", /* 257 -> fg */
+																			    	"magenta"  /* 258 -> cursor */
 };
 
-/*
- * Default colors (colorname index)
- * foreground, background, cursor
- */
-
 
 /*
- * Colors used, when the specific fg == defaultfg. So in reverse mode this
- * will reverse too. Another logic would only make the simple feature too
- * complex.
- */
+ *  * Default colors (colorname index)
+ *   * foreground, background, cursor, reverse cursor
+ *    */
+unsigned int defaultfg = 12;
+unsigned int defaultbg = 0;
+static unsigned int defaultcs = 14;
+static unsigned int defaultrcs = 15;
+
 static unsigned int defaultitalic = 7;
 static unsigned int defaultunderline = 7;
 
