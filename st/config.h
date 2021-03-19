@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "UbuntuMono:pixelsize=28:antialias=true:autohint=true";
-static int borderpx = 2;
+static char *font = "UbuntuMono:pixelsize=24:antialias=true:autohint=true";
+static int borderpx = 8;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -97,6 +97,9 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
+/* bg opacity */
+float alpha = .88, alphaUnfocused = .88;
+
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 
@@ -125,11 +128,11 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor
  */
-unsigned int defaultfg = 15;
+unsigned int defaultfg = 7;
 unsigned int defaultbg = 0;
 static unsigned int defaultcs = 15;
 static unsigned int defaultrcs = 257;
-
+unsigned int bg = 0, bgUnfocused = 0;
 /*
  * Default shape of cursor
  * 2: Block ("█")
