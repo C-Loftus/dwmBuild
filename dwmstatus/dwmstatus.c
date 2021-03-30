@@ -71,6 +71,7 @@ mktimes(char *fmt, char *tzname)
 		fprintf(stderr, "strftime == 0\n");
 		return smprintf("");
 	}
+	strftime(buf, 129, "%I:%M %h %d", timtm); 
 
 	return smprintf("%s", buf);
 }
@@ -183,6 +184,7 @@ main(void)
 	char *avgs;
 	char *bat;
 	char *tmar;
+	char* cpu;
 
 	if (!(dpy = XOpenDisplay(NULL))) {
 		fprintf(stderr, "dwmstatus: cannot open display.\n");
@@ -195,9 +197,10 @@ main(void)
 		// only one battery in my system so this is commented out
 		// bat1 = getbattery("/sys/class/power_supply/BAT1");
 		tmar = mktimes("%H:%M", American);
+		cpu = system("")		
 
-		status = smprintf(" Battery:%s| Time:%s ",
-				 bat, tmar);
+		status = smprintf(" Battery:%s| CPU:%s | %s ",
+				 bat, system(), tmar);
 		setstatus(status);
 
 		free(avgs);
@@ -210,4 +213,3 @@ main(void)
 
 	return 0;
 }
-
