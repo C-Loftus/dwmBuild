@@ -184,7 +184,7 @@ main(void)
 	char *avgs;
 	char *bat;
 	char *tmar;
-	char* cpu;
+	
 
 	if (!(dpy = XOpenDisplay(NULL))) {
 		fprintf(stderr, "dwmstatus: cannot open display.\n");
@@ -197,10 +197,9 @@ main(void)
 		// only one battery in my system so this is commented out
 		// bat1 = getbattery("/sys/class/power_supply/BAT1");
 		tmar = mktimes("%H:%M", American);
-		cpu = system("")		
 
-		status = smprintf(" Battery:%s| CPU:%s | %s ",
-				 bat, system(), tmar);
+		status = smprintf(" Battery:%s| %s ",
+				 bat, tmar);
 		setstatus(status);
 
 		free(avgs);

@@ -1,0 +1,14 @@
+[Desktop Entry]
+
+Encoding=UTF-8
+
+Name=DWM
+
+Comment=Dynamic Window Manager
+
+Exec=/usr/local/bin/dwm
+
+Icon=
+
+Type=Application
+
