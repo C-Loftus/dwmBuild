@@ -118,11 +118,21 @@ readfile(char *base, char *file)
 char *
 getbattery(char *base)
 {
+	
 	char *co, status;
 	int descap, remcap;
+	
 
 	descap = -1;
 	remcap = -1;
+
+	// special case for mouse that doesn't have percentage indicators
+	if (strncmp("sys/class/power_supply/hidpp_battery_0", base, 40) == 1) {
+		co = readfile(base, "capacity_level");
+		co[strlen(co)-1] = 0;
+
+		return smprintf("%s", co);
+	}
 
 	co = readfile(base, "present");
 	if (co == NULL)
@@ -177,6 +187,56 @@ gettemperature(char *base, char *sensor)
 	return smprintf("%02.0f°C", atof(co) / 1000);
 }
 
+float getram(){
+    int total, free, buffers, cached;
+    FILE *f;
+
+    f = fopen("/proc/meminfo", "r");
+
+    if(f == NULL){
+        perror("fopen");
+        exit(1);
+    }
+
+    fscanf(f, "%*s %d %*s" // mem total
+              "%*s %d %*s" // mem free
+              "%*s %*d %*s" // mem available
+              "%*s %d %*s" // buffers
+              "%*s %d", //cached
+              &total, &free, &buffers, &cached);
+    fclose(f);
+
+    return (float)(total-free-buffers-cached)/total * 100;
+}
+
+struct cpuusage{
+    long int total, used;
+};
+
+struct cpuusage getcpu(){
+    long int user, nice, system, idle, iowait, irq, softirq;
+    struct cpuusage usage;
+
+    FILE *f;
+    f = fopen("/proc/stat", "r");
+
+    if(f == NULL){
+        perror("fopen");
+        exit(1);
+    }
+
+    fscanf(f, "%*s %ld %ld %ld %ld %ld %ld %ld", &user, &nice, &system, &idle, &iowait, &irq, &softirq);
+
+    usage.used = user + nice + system + irq +softirq;
+    usage.total = user + nice + system + idle + iowait + irq +softirq;
+
+    fclose(f);
+
+    return usage;
+}
+
+
+
 int
 main(void)
 {
@@ -184,6 +244,14 @@ main(void)
 	char *avgs;
 	char *bat;
 	char *tmar;
+	char *mouseBat;
+	// char *temp;
+
+	struct cpuusage cpu_i_usage = getcpu();
+    struct cpuusage cpu_f_usage;
+
+    double cpu_used, cpu_total;
+
 	
 
 	if (!(dpy = XOpenDisplay(NULL))) {
@@ -191,21 +259,26 @@ main(void)
 		return 1;
 	}
 
-	for (;;sleep(60)) {
+	for (;;sleep(10)) {
+		cpu_f_usage = getcpu();
+		cpu_used = cpu_f_usage.used - cpu_i_usage.used;
+        cpu_total = cpu_f_usage.total - cpu_i_usage.total;
+
 		avgs = loadavg();
 		bat = getbattery("/sys/class/power_supply/BAT0");
-		// only one battery in my system so this is commented out
-		// bat1 = getbattery("/sys/class/power_supply/BAT1");
+		mouseBat = getbattery("sys/class/power_supply/hidpp_battery_0");
 		tmar = mktimes("%H:%M", American);
-
-		status = smprintf(" Battery:%s| %s ",
-				 bat, tmar);
+		// temp = gettemperature("/sys/class/hwmon/hwmon0/device", "");
+		status = smprintf(" R: %0.f%% | C: %.0f%% | B: %s | MB: %s | %s",
+				 getram(), cpu_used/cpu_total*100, bat, mouseBat, tmar);
 		setstatus(status);
 
 		free(avgs);
 		free(bat);
 		free(tmar);
 		free(status);
+		cpu_i_usage = cpu_f_usage;
+
 	}
 
 	XCloseDisplay(dpy);
