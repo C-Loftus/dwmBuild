@@ -127,9 +127,9 @@ getbattery(char *base)
 	remcap = -1;
 
 	// special case for mouse that doesn't have percentage indicators
-	if (strncmp("sys/class/power_supply/hidpp_battery_0", base, 40) == 1) {
+	if (!strncmp("/sys/class/power_supply/hidpp_battery_0", base, 40)) {
 		co = readfile(base, "capacity_level");
-		co[strlen(co)-1] = 0;
+		 co[strlen(co)-1]=0;
 
 		return smprintf("%s", co);
 	}
@@ -266,7 +266,7 @@ main(void)
 
 		avgs = loadavg();
 		bat = getbattery("/sys/class/power_supply/BAT0");
-		mouseBat = getbattery("sys/class/power_supply/hidpp_battery_0");
+		mouseBat = getbattery("/sys/class/power_supply/hidpp_battery_0");
 		tmar = mktimes("%H:%M", American);
 		// temp = gettemperature("/sys/class/hwmon/hwmon0/device", "");
 		status = smprintf(" R: %0.f%% | C: %.0f%% | B: %s | MB: %s | %s",
