@@ -129,9 +129,10 @@ getbattery(char *base)
 	// special case for mouse that doesn't have percentage indicators
 	if (!strncmp("/sys/class/power_supply/hidpp_battery_0", base, 40)) {
 		co = readfile(base, "capacity_level");
+		if (co != NULL) {
 		 co[strlen(co)-1]=0;
-
-		return smprintf("%s", co);
+		return smprintf("%s", co); 
+		}
 	}
 
 	co = readfile(base, "present");
