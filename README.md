@@ -32,6 +32,10 @@ can be found here : https://git.suckless.org/dwm/
 
 
 ![desktop2](https://user-images.githubusercontent.com/70598503/114765291-fccab200-9d32-11eb-9bea-8861ee2402ee.png)
+
+![desktop](https://user-images.githubusercontent.com/70598503/114767341-81b6cb00-9d35-11eb-8201-cedd3e48986e.png)
+
+
 ## Installation
 Package names will depend on system. You will need the xorg c libraries to compile. For apt, install the following dependencies. If you are not on Ubuntu or one of its deriviatives please consult your package manager to find the name for the UbuntuMono font. You will need that as well. 
 
