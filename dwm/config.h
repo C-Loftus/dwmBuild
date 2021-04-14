@@ -13,7 +13,9 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_gruv[]        = "#665c54";    
-static const char col_gruv_light[]  = "#b57614";
+static const char col_grey_bar[]  = "#a89984";
+
+static const char col_gruv_yellow[]  = "#b57614";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray2, col_gray1},
@@ -58,8 +60,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gruv_light, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "gnome-terminal", "st", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_grey_bar, "-sf", col_gray4, NULL };
+static const char *termcmd[]  = { "xfce4-terminal", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
