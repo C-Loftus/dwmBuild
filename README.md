@@ -97,5 +97,5 @@ In the photo provided, I am using the gruvbox colorscheme on my terminal. This i
 In this repository there is a text file containing all the basic commands one would need to know to run DWM. 
 
 ## License
-Redestributed and modified with permission according to the MIT license. 
-[MIT](https://choosealicense.com/licenses/mit/)
+Redestributed and modified with permission according to the [MIT](https://choosealicense.com/licenses/mit/) license. 
+
