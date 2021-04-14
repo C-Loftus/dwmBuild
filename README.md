@@ -65,7 +65,7 @@ sudo ./install.sh
 For more complex build procedures please consult the makefile in each directory.
 
 ## Running
-DWM needs a way to start on login. On a minimal Linux installation, the easiest way is to do this is to add DWM to you xinitrc
+DWM needs a way to start on login. On a minimal Linux installation, the easiest way is to do this is to add DWM to your .xinitrc. 
 If you do not have an xinitrc, I have provided a sample one in the repository. Be careful, as running cp on this will overwrite your earlier .xinitrc
 ```
 cd XServerFiles
