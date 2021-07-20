@@ -2,9 +2,7 @@
 
 
 ## My DWM Build
-This is my build of the linux window tiling window manager dwm, the application launcher dmenu, and the status bar dwmstatus. I have included the terminal st as well, although it is optional to use and the dwm config.h file must be changed to use it. All of these 
-are from the suckless software utilities and are tailored 
-to my own personal usage on an Arch Linux minimal install. 
+This is my build of the linux window tiling window manager dwm, the application launcher dmenu, and the status bar dwmstatus. I have included the terminal st as well, although it is optional to use and the dwm config.h file must be changed to use it. This was created for use on Arch Linux but has been tested and successfully run on Ubuntu (Gnome and XFCE) and Manjaro (XFCE).
 
 The original source code without my modifications 
 can be found here : https://git.suckless.org/dwm/
